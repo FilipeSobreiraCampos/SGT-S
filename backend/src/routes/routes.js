@@ -1,4 +1,6 @@
 const express = require('express');
+const { CriarPlano } = require('../controllers/PlanoController');
+const PlanoController = require('../controllers/PlanoController');
 
 const routes = (app) => {
     app.use(express.json());
@@ -6,6 +8,9 @@ const routes = (app) => {
     app.get('/', (req, res) => {
         res.send('Hello World!');
     });
+
+    app.post('/plano/criar', PlanoController.CriarPlano);
+
 
 };
 

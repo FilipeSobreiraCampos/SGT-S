@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Paper, Typography, Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, TextField } from '@mui/material';
+import { Paper, Typography, Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, TextField} from '@mui/material';
 import { motion } from 'framer-motion';
-
 const GerenciamentoPlano = () => {
   const [planos, setPlanos] = useState([
     { id: 1, nome: 'Plano A', descricao: 'Plano de Testes para o Sistema A', status: 'Ativo' },
