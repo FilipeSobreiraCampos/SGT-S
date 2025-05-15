@@ -1,5 +1,7 @@
 const Plano = require('../models/Plano.js')
 
+// CRUD do PLANO
+
 class PlanoController {
     static async listAllRatings(req, res) {
         try {
