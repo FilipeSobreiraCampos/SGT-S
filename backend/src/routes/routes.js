@@ -2,13 +2,12 @@ const express = require('express');
 const { CriarPlano } = require('../controllers/PlanoController');
 const PlanoController = require('../controllers/PlanoController');
 
+// Página de rotas
+
 const routes = (app) => {
     app.use(express.json());
 
-    app.get('/', (req, res) => {
-        res.send('Hello World!');
-    });
-
+    //Rotas do plano
     app.post('/plano/criar', PlanoController.CriarPlano);
     app.get('/plano/consultar', PlanoController.listAllRatings);
 
