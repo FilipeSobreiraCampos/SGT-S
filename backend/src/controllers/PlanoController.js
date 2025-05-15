@@ -18,6 +18,6 @@ class PlanoController {
         res.send(await Plano.create(dadosPlano))
 
     }
-}//teste
+}//test
 
 module.exports = PlanoController;
