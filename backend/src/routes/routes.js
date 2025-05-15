@@ -10,6 +10,7 @@ const routes = (app) => {
     });
 
     app.post('/plano/criar', PlanoController.CriarPlano);
+    app.get('/plano/consultar', PlanoController.listAllRatings);
 
 
 };

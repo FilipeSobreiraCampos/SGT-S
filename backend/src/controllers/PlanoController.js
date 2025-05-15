@@ -3,8 +3,8 @@ const Plano = require('../models/Plano.js')
 class PlanoController {
     static async listAllRatings(req, res) {
         try {
-            const ratings = await Rating.findAll();
-            res.status(200).json(ratings);
+            const planos = await Plano.findAll();
+            res.status(200).json(planos);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
