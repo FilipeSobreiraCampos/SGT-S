@@ -20,7 +20,7 @@ const Plano = () => {
   const location = useLocation();
   const [tabValue, setTabValue] = React.useState(0);
 
-  const tabPaths = ['/plano/lista', '/plano/documentacao', '/plano/execucao', '/plano/configuracao', '/plano/gerenciamento'];
+  const tabPaths = ['/plano/criar','/plano/lista', '/plano/documentacao', '/plano/execucao', '/plano/configuracao'];
 
   // Atualiza a aba com base na URL
   React.useEffect(() => {
@@ -43,11 +43,12 @@ const Plano = () => {
           scrollButtons="auto"
           sx={{ borderBottom: 1, borderColor: 'divider' }}
         >
+          <Tab label="Criar Plano" />
           <Tab label="Lista de Planos" />
           <Tab label="Documentação" />
           <Tab label="Execução" />
           <Tab label="Configuração" />
-          <Tab label="Gerenciamento" />
+          
         </Tabs>
       </Paper>
 
@@ -56,7 +57,7 @@ const Plano = () => {
         <Route path="/documentacao" element={<DocumentacaoPlano />} />
         <Route path="/execucao" element={<ExecucaoPlano />} />
         <Route path="/configuracao" element={<ConfiguracaoTeste />} />
-        <Route path="/gerenciamento" element={<GerenciamentoPlano />} />
+        <Route path="/criar" element={<GerenciamentoPlano />} />
       </Routes>
     </Box>
   );

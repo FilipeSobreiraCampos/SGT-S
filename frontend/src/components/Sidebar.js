@@ -61,11 +61,11 @@ const Sidebar = ({ onLogout }) => {
       icon: <PlanIcon />,
       path: '/plano',
       subItems: [
+        { text: 'Criar Plano', icon: <ManageAccounts />, path: '/plano/gerenciamento' },
         { text: 'Lista de Planos', icon: <ListIcon />, path: '/plano/lista' },
         { text: 'Documentação', icon: <DocumentScanner />, path: '/plano/documentacao' },
         { text: 'Execução', icon: <PlayArrow />, path: '/plano/execucao' },
-        { text: 'Configuração', icon: <Settings />, path: '/plano/configuracao' },
-        { text: 'Gerenciamento', icon: <ManageAccounts />, path: '/plano/gerenciamento' },
+        { text: 'Configuração', icon: <Settings />, path: '/plano/criar' },
       ]
     },
     { text: 'Testes', icon: <TestIcon />, path: '/teste' },
