@@ -10,7 +10,7 @@ const routes = (app) => {
     //Rotas do plano
     app.post('/plano/criar', PlanoController.CriarPlano);
     app.get('/plano/consultar', PlanoController.listAllRatings);
-    app.delete('/plano/:id', PlanoController.excluirPlano);
+    app.delete('/plano/deletar/:id', PlanoController.excluirPlano);
 
 
 };
