@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Tooltip, TableContainer, Button} from '@mui/material';
+import { Menu,MenuItem, Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Tooltip, TableContainer, Button} from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import { motion } from 'framer-motion';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 
 const PlanoList = () => {
     const [planos, setPlanos] = useState([]);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [planoSelecionado, setPlanoSelecionado] = useState(null);
 
     useEffect(() => {
       const fetchData = async () => {
@@ -28,6 +31,27 @@ const PlanoList = () => {
         console.log('planos:',planos);
       }, [planos]);
       
+      const handleMenuClick = (event, plano) => {
+    setAnchorEl(event.currentTarget); // Define onde o menu será ancorado (onde clicou)
+    setPlanoSelecionado(plano);       // Guarda qual plano foi clicado
+  };
+
+  // Fechar menu
+  const handleMenuClose = () => {
+    setAnchorEl(null);                // Fecha o menu
+    setPlanoSelecionado(null);       // Limpa a seleção
+  };
+
+  // Ações
+  const handleEditar = () => {
+    console.log("Editar plano:", planoSelecionado);
+    handleMenuClose(); // Fecha o menu depois da ação
+  };
+
+  const handleExcluir = () => {
+    console.log("Excluir plano:", planoSelecionado);
+    handleMenuClose(); // Fecha o menu depois da ação
+  };
   return (
     <Box
       component={motion.div}
@@ -64,23 +88,34 @@ const PlanoList = () => {
                   <TableCell>{plano.tipoTeste}</TableCell>
                   <TableCell>{plano.status}</TableCell>
                 <TableCell align="center">
-                  <Tooltip title="Editar">
-                    <IconButton color="primary">
-                      <Edit />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="Excluir">
-                    <IconButton color="error">
-                      <Delete />
-                    </IconButton>
-                  </Tooltip>
-                </TableCell>
+                    <Tooltip title="Mais Opções">
+                      <IconButton
+                        color="error"
+                        onClick={(e) => handleMenuClick(e, plano)}
+                      >
+                        <MoreVertIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
       </Paper>
+
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleEditar}>Documentação</MenuItem>
+        <MenuItem onClick={handleEditar}>Sistema</MenuItem>
+        <MenuItem onClick={handleEditar}>Execução</MenuItem>
+        <MenuItem onClick={handleEditar}>Parametros do Plano</MenuItem>
+        <MenuItem onClick={handleEditar}>Editar</MenuItem>
+        <MenuItem onClick={handleExcluir}>Excluir</MenuItem>
+      </Menu>
     </Box>
   );
 };
