@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 
-const GerenciamentoPlano = () => {
+const CriarPlano = () => {
     
   const [planos, setPlanos] = useState([]);
   const [form, setForm] = useState({ nome: '', dataInicio: '', dataFim: '', tipoTeste: '', descricao: '', status: '' });
@@ -91,7 +91,7 @@ const GerenciamentoPlano = () => {
     >
       <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
         <Typography variant="h5" gutterBottom>
-          Gerenciamento de Planos de Teste
+          Criar de Planos de Teste
         </Typography>
 
         <Typography variant="body1" sx={{ mb: 2 }}>
@@ -192,4 +192,4 @@ const GerenciamentoPlano = () => {
   );
 };
 
-export default GerenciamentoPlano;
+export default CriarPlano;

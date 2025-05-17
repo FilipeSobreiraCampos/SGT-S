@@ -12,8 +12,8 @@ import { Add as AddIcon } from '@mui/icons-material';
 import DocumentacaoPlano from './DocumentacaoPlano';
 import ExecucaoPlano from './ExecucaoPlano';
 import ConfiguracaoTeste from './ConfiguracaoTeste';
-import GerenciamentoPlano from './GerenciamentoPlano';
 import PlanoList from './PlanoList';
+import CriarPlano from './CriarPlano';
 
 const Plano = () => {
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const Plano = () => {
         <Route path="/documentacao" element={<DocumentacaoPlano />} />
         <Route path="/execucao" element={<ExecucaoPlano />} />
         <Route path="/configuracao" element={<ConfiguracaoTeste />} />
-        <Route path="/criar" element={<GerenciamentoPlano />} />
+        <Route path="/criar" element={<CriarPlano />} />
       </Routes>
     </Box>
   );

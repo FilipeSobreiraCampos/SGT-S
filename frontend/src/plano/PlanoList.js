@@ -1,14 +1,33 @@
-import React from 'react';
-import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Tooltip } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Tooltip, TableContainer, Button} from '@mui/material';
 import { Edit, Delete } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 
-const planosMock = [
-  { id: 1, nome: 'Plano de Teste A', sistema: 'SGT-S', responsavel: 'Maria' },
-  { id: 2, nome: 'Plano de Teste B', sistema: 'SGT-S', responsavel: 'João' },
-];
 
 const PlanoList = () => {
+    const [planos, setPlanos] = useState([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get("http://localhost:3001/plano/consultar");
+          console.log('planos recebidos:', response.data);
+          console.log('response.data:', response.data);
+          console.log('response:', response)
+          setPlanos(response.data);  
+        } catch (error) {
+          console.error("Erro ao buscar os dados:", error);
+        }
+      };
+    
+      fetchData();
+    }, []);   
+  
+      useEffect(() => {
+        console.log('planos:',planos);
+      }, [planos]);
+      
   return (
     <Box
       component={motion.div}
@@ -22,23 +41,28 @@ const PlanoList = () => {
       </Typography>
 
       <Paper elevation={3} sx={{ mt: 2 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell><strong>ID</strong></TableCell>
-              <TableCell><strong>Nome do Plano</strong></TableCell>
-              <TableCell><strong>Sistema</strong></TableCell>
-              <TableCell><strong>Responsável</strong></TableCell>
-              <TableCell align="center"><strong>Ações</strong></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {planosMock.map((plano) => (
-              <TableRow key={plano.id}>
-                <TableCell>{plano.id}</TableCell>
-                <TableCell>{plano.nome}</TableCell>
-                <TableCell>{plano.sistema}</TableCell>
-                <TableCell>{plano.responsavel}</TableCell>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell><strong>Nome</strong></TableCell>
+                <TableCell><strong>Descrição</strong></TableCell>
+                <TableCell><strong>Data Inicio</strong></TableCell>
+                <TableCell><strong>Data Fim</strong></TableCell>
+                <TableCell><strong>Tipo de Teste</strong></TableCell>
+                <TableCell><strong>Status</strong></TableCell>
+                <TableCell  align="center"><strong>Ações</strong></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {planos.map((plano) => (
+                <TableRow key={plano.id}>
+                  <TableCell>{plano.nome}</TableCell>
+                  <TableCell>{plano.descricao}</TableCell>
+                  <TableCell>{plano.dataInicio}</TableCell>
+                  <TableCell>{plano.dataFim}</TableCell>
+                  <TableCell>{plano.tipoTeste}</TableCell>
+                  <TableCell>{plano.status}</TableCell>
                 <TableCell align="center">
                   <Tooltip title="Editar">
                     <IconButton color="primary">
@@ -51,10 +75,11 @@ const PlanoList = () => {
                     </IconButton>
                   </Tooltip>
                 </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Paper>
     </Box>
   );
