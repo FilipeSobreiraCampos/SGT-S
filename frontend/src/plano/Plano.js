@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import {
   Box,
   Typography,
@@ -9,7 +9,6 @@ import {
   Paper
 } from '@mui/material';
 import { Add as AddIcon } from '@mui/icons-material';
-// Corrigindo os caminhos de importação
 import DocumentacaoPlano from './DocumentacaoPlano';
 import ExecucaoPlano from './ExecucaoPlano';
 import ConfiguracaoTeste from './ConfiguracaoTeste';
@@ -18,12 +17,20 @@ import PlanoList from './PlanoList';
 
 const Plano = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [tabValue, setTabValue] = React.useState(0);
+
+  const tabPaths = ['/plano/lista', '/plano/documentacao', '/plano/execucao', '/plano/configuracao', '/plano/gerenciamento'];
+
+  // Atualiza a aba com base na URL
+  React.useEffect(() => {
+    const currentIndex = tabPaths.findIndex(path => location.pathname.startsWith(path));
+    setTabValue(currentIndex === -1 ? 0 : currentIndex);
+  }, [location.pathname]);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
-    const paths = ['', '/documentacao', '/execucao', '/configuracao', '/gerenciamento'];
-    navigate(`/plano${paths[newValue]}`);
+    navigate(tabPaths[newValue]);
   };
 
   return (

@@ -17,6 +17,8 @@ const GerenciamentoPlano = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/plano/consultar");
+        console.log('planos recebidos:', response.data);
+        console.log('response.data:', response.data);
         console.log('response:', response)
         setPlanos(response.data);  
       } catch (error) {
@@ -36,27 +38,27 @@ const GerenciamentoPlano = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleAddPlano = async () => {
-    if (editMode) {
-      const updatedPlanos = planos.map((plano) =>
-        plano.id === editId ? { ...plano, ...form } : plano
-      );
-      setPlanos(updatedPlanos);
-      setEditMode(false);
-      setEditId(null);
-    } else {
-      const newPlano = { ...form};
-      try{
-        await axios.post("http://localhost:3001/plano/criar", newPlano)
-
-      }catch(error) {
-        console.error("Erro ao buscar os dados:", error);
-      }
-      setPlanos([...planos, newPlano]);
+ const handleAddPlano = async () => {
+  if (editMode) {
+    const updatedPlanos = planos.map((plano) =>
+      plano.id === editId ? { ...plano, ...form } : plano
+    );
+    setPlanos(updatedPlanos);
+    setEditMode(false);
+    setEditId(null);
+  } else {
+    const newPlano = { ...form };
+    try {
+      const response = await axios.post("http://localhost:3001/plano/criar", newPlano);
+       console.log('Resposta da criação do plano:', response.data);
+      const planoCriado = response.data;
+      setPlanos([...planos, planoCriado]);
+    } catch (error) {
+      console.error("Erro ao criar o plano:", error);
     }
-    setForm({ nome: '', descricao: '', status: '' });
-  };
-
+  }
+  setForm({ nome: '', descricao: '', dataInicio: '', dataFim: '', tipoTeste: '', status: '' });
+};
   const handleEditPlano = (id) => {
     const planoToEdit = planos.find((plano) => plano.id === id);
     setForm(planoToEdit);
@@ -64,10 +66,21 @@ const GerenciamentoPlano = () => {
     setEditId(id);
   };
 
-  const handleDeletePlano = (id) => {
+  const handleDeletePlano = async (id) => {
+      console.log('ID para deletar:', id); // veja o que está chegando aqui
+  try {
+    // Chama a API DELETE
+    await axios.delete(`http://localhost:3001/plano/${id}`);
+    
+    // Atualiza o estado local removendo o plano excluído
     const updatedPlanos = planos.filter((plano) => plano.id !== id);
     setPlanos(updatedPlanos);
-  };
+    
+  } catch (error) {
+    console.error("Erro ao excluir o plano:", error);
+    // Aqui você pode mostrar uma mensagem de erro para o usuário, se quiser
+  }
+};
 
   return (
     <motion.div
@@ -167,7 +180,7 @@ const GerenciamentoPlano = () => {
                   <TableCell>{plano.status}</TableCell>
                   <TableCell>
                     <Button onClick={() => handleEditPlano(plano.id)}>Editar</Button>
-                    <Button onClick={() => handleDeletePlano(plano.id)}>Excluir</Button>
+                    <Button color="error" onClick={() => handleDeletePlano(plano.id)}>Excluir</Button>
                   </TableCell>
                 </TableRow>
               ))}

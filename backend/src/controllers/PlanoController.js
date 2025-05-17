@@ -18,6 +18,20 @@ class PlanoController {
         res.send(await Plano.create(dadosPlano))
 
     }
-}//teste
+
+     static async excluirPlano(req, res) {
+        const { id } = req.params;        
+        try {
+            const deletado = await Plano.destroy({ where: { id } });
+            if (deletado) {
+                res.status(200).json({ message: 'Plano excluído com sucesso' });
+            } else {
+                res.status(404).json({ message: 'Plano não encontrado' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
+}
 
 module.exports = PlanoController;
