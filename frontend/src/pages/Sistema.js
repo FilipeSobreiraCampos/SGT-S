@@ -96,10 +96,8 @@ const PlanoList = () => {
             <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
               <TableCell>ID</TableCell>
               <TableCell>Nome</TableCell>
-              <TableCell>Sistema</TableCell>
+              <TableCell>Descrição</TableCell>
               <TableCell>Versão</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Data de Criação</TableCell>
               <TableCell align="center">Ações</TableCell>
             </TableRow>
           </TableHead>
@@ -110,16 +108,8 @@ const PlanoList = () => {
                 <TableRow key={plano.id} hover>
                   <TableCell>{plano.id}</TableCell>
                   <TableCell>{plano.nome}</TableCell>
-                  <TableCell>{plano.sistema}</TableCell>
+                  <TableCell>{plano.descricao}</TableCell>
                   <TableCell>{plano.versao}</TableCell>
-                  <TableCell>
-                    <Chip 
-                      label={plano.status} 
-                      color={getStatusColor(plano.status)}
-                      size="small"
-                    />
-                  </TableCell>
-                  <TableCell>{plano.dataCriacao}</TableCell>
                   <TableCell align="center">
                     <IconButton size="small" color="primary" onClick={() => handleEditPlano(plano.id)}>
                       <EditIcon fontSize="small" />

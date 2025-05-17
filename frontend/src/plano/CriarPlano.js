@@ -34,21 +34,13 @@ const CriarPlano = () => {
   };
 
   const handleAddPlano = async () => {
-    if (editMode) {
-      const updatedPlanos = planos.map((plano) =>
-        plano.id === editId ? { ...plano, ...form } : plano
-      );
-      setPlanos(updatedPlanos);
-      setEditMode(false);
-      setEditId(null);
-    } else {
       try {
         const response = await axios.post('http://localhost:3001/plano/criar', form);
         setPlanos([...planos, response.data]);
       } catch (error) {
         console.error('Erro ao criar o plano:', error);
       }
-    }
+    
     setForm({
       nome: '',
       descricao: '',

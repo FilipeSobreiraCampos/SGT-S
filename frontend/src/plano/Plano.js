@@ -28,11 +28,6 @@ const Plano = () => {
     setTabValue(currentIndex === -1 ? 0 : currentIndex);
   }, [location.pathname]);
 
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-    navigate(tabPaths[newValue]);
-  };
-
   return (
     <Box>
         <Routes>
