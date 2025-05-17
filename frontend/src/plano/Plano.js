@@ -35,24 +35,7 @@ const Plano = () => {
 
   return (
     <Box>
-      <Paper elevation={2} sx={{ mb: 3 }}>
-        <Tabs
-          value={tabValue}
-          onChange={handleTabChange}
-          variant="scrollable"
-          scrollButtons="auto"
-          sx={{ borderBottom: 1, borderColor: 'divider' }}
-        >
-          <Tab label="Criar Plano" />
-          <Tab label="Lista de Planos" />
-          <Tab label="Documentação" />
-          <Tab label="Execução" />
-          <Tab label="Configuração" />
-          
-        </Tabs>
-      </Paper>
-
-      <Routes>
+        <Routes>
         <Route path="/lista" element={<PlanoList />} />
         <Route path="/documentacao" element={<DocumentacaoPlano />} />
         <Route path="/execucao" element={<ExecucaoPlano />} />
