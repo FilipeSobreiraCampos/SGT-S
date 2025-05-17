@@ -3,7 +3,7 @@ const Plano = require('../models/Plano.js')
 // CRUD do PLANO
 
 class PlanoController {
-    static async listAllRatings(req, res) {
+    static async ListarPlanos(req, res) {
         try {
             const planos = await Plano.findAll();
             res.status(200).json(planos);
@@ -19,7 +19,7 @@ class PlanoController {
 
     }
 
-     static async excluirPlano(req, res) {
+     static async ExcluirPlano(req, res) {
         const { id } = req.params;        
         try {
             const deletado = await Plano.destroy({ where: { id } });

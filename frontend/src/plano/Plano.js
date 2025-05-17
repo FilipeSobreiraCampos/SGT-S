@@ -35,17 +35,6 @@ const Plano = () => {
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4">Planos de Teste</Typography>
-        <Button 
-          variant="contained" 
-          startIcon={<AddIcon />}
-          onClick={() => navigate('/plano/documentacao?new=true')}
-        >
-          Novo Plano
-        </Button>
-      </Box>
-
       <Paper elevation={2} sx={{ mb: 3 }}>
         <Tabs
           value={tabValue}
