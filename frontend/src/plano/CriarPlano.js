@@ -1,86 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import { Paper, Typography, Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, TextField} from '@mui/material';
+import { Paper, Typography, Divider, Button, TextField } from '@mui/material';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
-
-
 const CriarPlano = () => {
-    
   const [planos, setPlanos] = useState([]);
-  const [form, setForm] = useState({ nome: '', dataInicio: '', dataFim: '', tipoTeste: '', descricao: '', status: '' });
+  const [form, setForm] = useState({
+    nome: '',
+    dataInicio: '',
+    dataFim: '',
+    tipoTeste: '',
+    descricao: '',
+    status: '',
+  });
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
-  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/plano/consultar");
-        console.log('planos recebidos:', response.data);
-        console.log('response.data:', response.data);
-        console.log('response:', response)
-        setPlanos(response.data);  
+        const response = await axios.get('http://localhost:3001/plano/consultar');
+        setPlanos(response.data);
       } catch (error) {
-        console.error("Erro ao buscar os dados:", error);
+        console.error('Erro ao buscar os dados:', error);
       }
     };
-  
     fetchData();
-  }, []);   
-
-    useEffect(() => {
-      console.log('planos:',planos);
-    }, [planos]);
+  }, []);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
- const handleAddPlano = async () => {
-  if (editMode) {
-    const updatedPlanos = planos.map((plano) =>
-      plano.id === editId ? { ...plano, ...form } : plano
-    );
-    setPlanos(updatedPlanos);
-    setEditMode(false);
-    setEditId(null);
-  } else {
-    const newPlano = { ...form };
-    try {
-      const response = await axios.post("http://localhost:3001/plano/criar", newPlano);
-       console.log('Resposta da criação do plano:', response.data);
-      const planoCriado = response.data;
-      setPlanos([...planos, planoCriado]);
-    } catch (error) {
-      console.error("Erro ao criar o plano:", error);
+  const handleAddPlano = async () => {
+    if (editMode) {
+      const updatedPlanos = planos.map((plano) =>
+        plano.id === editId ? { ...plano, ...form } : plano
+      );
+      setPlanos(updatedPlanos);
+      setEditMode(false);
+      setEditId(null);
+    } else {
+      try {
+        const response = await axios.post('http://localhost:3001/plano/criar', form);
+        setPlanos([...planos, response.data]);
+      } catch (error) {
+        console.error('Erro ao criar o plano:', error);
+      }
     }
-  }
-  setForm({ nome: '', descricao: '', dataInicio: '', dataFim: '', tipoTeste: '', status: '' });
-};
-  const handleEditPlano = (id) => {
-    const planoToEdit = planos.find((plano) => plano.id === id);
-    setForm(planoToEdit);
-    setEditMode(true);
-    setEditId(id);
+    setForm({
+      nome: '',
+      descricao: '',
+      dataInicio: '',
+      dataFim: '',
+      tipoTeste: '',
+      status: '',
+    });
   };
-
-  const handleDeletePlano = async (id) => {
-      console.log('ID para deletar:', id); // veja o que está chegando aqui
-  try {
-    // Chama a API DELETE
-    await axios.delete(`http://localhost:3001/plano/deletar/${id}`);
-    
-    // Atualiza o estado local removendo o plano excluído
-    const updatedPlanos = planos.filter((plano) => plano.id !== id);
-    setPlanos(updatedPlanos);
-    
-  } catch (error) {
-    console.error("Erro ao excluir o plano:", error);
-    // Aqui você pode mostrar uma mensagem de erro para o usuário, se quiser
-  }
-};
 
   return (
     <motion.div
@@ -91,11 +68,11 @@ const CriarPlano = () => {
     >
       <Paper elevation={3} sx={{ p: 3, borderRadius: 3 }}>
         <Typography variant="h5" gutterBottom>
-          Criar de Planos de Teste
+          Criar Planos de Teste
         </Typography>
 
         <Typography variant="body1" sx={{ mb: 2 }}>
-          Abaixo estão listados os planos de teste existentes. Você pode adicionar, editar ou excluir planos.
+          Abaixo estão listados os planos de teste existentes. Você pode adicionar novos planos.
         </Typography>
 
         <Divider sx={{ my: 2 }} />
@@ -116,7 +93,7 @@ const CriarPlano = () => {
           fullWidth
           sx={{ mb: 2 }}
         />
-          <TextField
+        <TextField
           label="Data Início"
           name="dataInicio"
           type="date"
@@ -125,8 +102,8 @@ const CriarPlano = () => {
           fullWidth
           sx={{ mb: 2 }}
           InputLabelProps={{ shrink: true }}
-/>
-          <TextField
+        />
+        <TextField
           label="Data Fim"
           name="dataFim"
           type="date"
@@ -135,8 +112,8 @@ const CriarPlano = () => {
           fullWidth
           sx={{ mb: 2 }}
           InputLabelProps={{ shrink: true }}
-/>
-           <TextField
+        />
+        <TextField
           label="Tipo de Teste"
           name="tipoTeste"
           value={form.tipoTeste}
@@ -158,7 +135,7 @@ const CriarPlano = () => {
           sx={{ mb: 2 }}
         >
           {editMode ? 'Editar Plano' : 'Adicionar Plano'}
-        </Button>        
+        </Button>
       </Paper>
     </motion.div>
   );
