@@ -116,22 +116,26 @@ const CriarPlano = () => {
           fullWidth
           sx={{ mb: 2 }}
         />
-           <TextField
-          label="Data Inicio"
+          <TextField
+          label="Data Início"
           name="dataInicio"
+          type="date"
           value={form.dataInicio}
           onChange={handleFormChange}
           fullWidth
           sx={{ mb: 2 }}
-        />
-           <TextField
+          InputLabelProps={{ shrink: true }}
+/>
+          <TextField
           label="Data Fim"
           name="dataFim"
+          type="date"
           value={form.dataFim}
           onChange={handleFormChange}
           fullWidth
           sx={{ mb: 2 }}
-        />
+          InputLabelProps={{ shrink: true }}
+/>
            <TextField
           label="Tipo de Teste"
           name="tipoTeste"

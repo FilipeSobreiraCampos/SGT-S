@@ -24,6 +24,12 @@ const PlanoList = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [planoSelecionado, setPlanoSelecionado] = useState(null);
   const navigate = useNavigate();  // <-- Cria o navigate
+  const formatarData = (dataISO) => {
+  if (!dataISO) return '';
+  const [ano, mes, dia] = dataISO.split('-');
+  return `${dia}/${mes}/${ano}`;
+};
+
 
   // Carrega os planos ao iniciar
   useEffect(() => {
@@ -107,8 +113,8 @@ const PlanoList = () => {
                 <TableRow key={plano.id}>
                   <TableCell>{plano.nome}</TableCell>
                   <TableCell>{plano.descricao}</TableCell>
-                  <TableCell>{plano.dataInicio}</TableCell>
-                  <TableCell>{plano.dataFim}</TableCell>
+                  <TableCell>{formatarData(plano.dataInicio)}</TableCell>
+                  <TableCell>{formatarData(plano.dataFim)}</TableCell>
                   <TableCell>{plano.tipoTeste}</TableCell>
                   <TableCell>{plano.status}</TableCell>
                   <TableCell align="center">
