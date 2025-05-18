@@ -1,57 +1,81 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Menu,MenuItem, Box, Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Tooltip, TableContainer, Button} from '@mui/material';
-import { Edit, Delete } from '@mui/icons-material';
-import { motion } from 'framer-motion';
+import {
+  Menu,
+  MenuItem,
+  Box,
+  Typography,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  IconButton,
+  Tooltip,
+  TableContainer
+} from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';  // <-- Importa useNavigate
 
 const PlanoList = () => {
-    const [planos, setPlanos] = useState([]);
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [planoSelecionado, setPlanoSelecionado] = useState(null);
+  const [planos, setPlanos] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [planoSelecionado, setPlanoSelecionado] = useState(null);
+  const navigate = useNavigate();  // <-- Cria o navigate
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get("http://localhost:3001/plano/consultar");
-          console.log('planos recebidos:', response.data);
-          console.log('response.data:', response.data);
-          console.log('response:', response)
-          setPlanos(response.data);  
-        } catch (error) {
-          console.error("Erro ao buscar os dados:", error);
-        }
-      };
-    
-      fetchData();
-    }, []);   
-  
-      useEffect(() => {
-        console.log('planos:',planos);
-      }, [planos]);
-      
-      const handleMenuClick = (event, plano) => {
-    setAnchorEl(event.currentTarget); // Define onde o menu será ancorado (onde clicou)
-    setPlanoSelecionado(plano);       // Guarda qual plano foi clicado
+  // Carrega os planos ao iniciar
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/plano/consultar");
+        setPlanos(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar os dados:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  // Abertura do menu contextual
+  const handleMenuClick = (event, plano) => {
+    setAnchorEl(event.currentTarget);
+    setPlanoSelecionado(plano);
   };
 
-  // Fechar menu
+  // Fecha o menu
   const handleMenuClose = () => {
-    setAnchorEl(null);                // Fecha o menu
-    setPlanoSelecionado(null);       // Limpa a seleção
+    setAnchorEl(null);
+    setPlanoSelecionado(null);
   };
 
-  // Ações
+  // Exclusão do plano
+  const handleExcluir = async () => {
+    if (!planoSelecionado) return;
+
+    const confirmar = window.confirm(`Tem certeza que deseja excluir o plano "${planoSelecionado.nome}"?`);
+    if (!confirmar) return;
+
+    try {
+      await axios.delete(`http://localhost:3001/plano/deletar/${planoSelecionado.id}`);
+      // Remove o plano da lista
+      setPlanos(prevPlanos => prevPlanos.filter(plano => plano.id !== planoSelecionado.id));
+      console.log("Plano excluído com sucesso:", planoSelecionado.id);
+    } catch (error) {
+      console.error("Erro ao excluir o plano:", error);
+    } finally {
+      handleMenuClose(); // Fecha o menu
+    }
+  };
+
+  // Redireciona para a rota de edição do plano
   const handleEditar = () => {
-    console.log("Editar plano:", planoSelecionado);
-    handleMenuClose(); // Fecha o menu depois da ação
+    if (!planoSelecionado) return;
+    navigate(`/plano/editar/${planoSelecionado.id}`);
+    handleMenuClose();
   };
 
-  const handleExcluir = () => {
-    console.log("Excluir plano:", planoSelecionado);
-    handleMenuClose(); // Fecha o menu depois da ação
-  };
   return (
     <Box
       component={motion.div}
@@ -71,11 +95,11 @@ const PlanoList = () => {
               <TableRow>
                 <TableCell><strong>Nome</strong></TableCell>
                 <TableCell><strong>Descrição</strong></TableCell>
-                <TableCell><strong>Data Inicio</strong></TableCell>
+                <TableCell><strong>Data Início</strong></TableCell>
                 <TableCell><strong>Data Fim</strong></TableCell>
                 <TableCell><strong>Tipo de Teste</strong></TableCell>
                 <TableCell><strong>Status</strong></TableCell>
-                <TableCell  align="center"><strong>Ações</strong></TableCell>
+                <TableCell align="center"><strong>Ações</strong></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -87,7 +111,7 @@ const PlanoList = () => {
                   <TableCell>{plano.dataFim}</TableCell>
                   <TableCell>{plano.tipoTeste}</TableCell>
                   <TableCell>{plano.status}</TableCell>
-                <TableCell align="center">
+                  <TableCell align="center">
                     <Tooltip title="Mais Opções">
                       <IconButton
                         color="error"
@@ -112,7 +136,7 @@ const PlanoList = () => {
         <MenuItem onClick={handleEditar}>Documentação</MenuItem>
         <MenuItem onClick={handleEditar}>Sistema</MenuItem>
         <MenuItem onClick={handleEditar}>Execução</MenuItem>
-        <MenuItem onClick={handleEditar}>Parametros do Plano</MenuItem>
+        <MenuItem onClick={handleEditar}>Parâmetros do Plano</MenuItem>
         <MenuItem onClick={handleEditar}>Editar</MenuItem>
         <MenuItem onClick={handleExcluir}>Excluir</MenuItem>
       </Menu>

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { CssBaseline, Box } from "@mui/material";
-import { Login, Dashboard, Teste, Usuario, Sistema, Relatorio, } from "./pages";
+import { Login, Dashboard, Teste, Usuario, Sistema, Relatorio } from "./pages";
 import Plano from './plano/Plano.js';
+import EditarPlano from './plano/EditarPlano.js';
 import Sidebar from "./components/Sidebar.js";
 
 function App() {
@@ -28,36 +29,50 @@ function App() {
                 <Login onLogin={handleLogin} /> : 
                 <Navigate to="/dashboard" replace />
             } />
+            
             <Route path="/dashboard" element={
               isAuthenticated ? 
                 <Dashboard /> : 
                 <Navigate to="/login" replace />
             } />
+            
+            {/* Rotas de Plano */}
             <Route path="/plano/*" element={
               isAuthenticated ? 
                 <Plano /> : 
                 <Navigate to="/login" replace />
             } />
+            {/* Rota específica para edição do plano */}
+            <Route path="/plano/editar/:id" element={
+              isAuthenticated ? 
+                <EditarPlano /> : 
+                <Navigate to="/login" replace />
+            } />
+            
             <Route path="/teste" element={
               isAuthenticated ? 
                 <Teste /> : 
                 <Navigate to="/login" replace />
             } />
+            
             <Route path="/usuario" element={
               isAuthenticated ? 
                 <Usuario /> : 
                 <Navigate to="/login" replace />
             } />
+            
             <Route path="/sistema" element={
               isAuthenticated ? 
                 <Sistema /> : 
                 <Navigate to="/login" replace />
             } />
+            
             <Route path="/relatorio" element={
               isAuthenticated ? 
                 <Relatorio /> : 
                 <Navigate to="/login" replace />
             } />
+            
             <Route path="/" element={
               <Navigate to={isAuthenticated ? "/dashboard" : "/login"} replace />
             } />

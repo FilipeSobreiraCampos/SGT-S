@@ -70,7 +70,7 @@ const CriarPlano = () => {
       console.log('ID para deletar:', id); // veja o que está chegando aqui
   try {
     // Chama a API DELETE
-    await axios.delete(`http://localhost:3001/plano/${id}`);
+    await axios.delete(`http://localhost:3001/plano/deletar/${id}`);
     
     // Atualiza o estado local removendo o plano excluído
     const updatedPlanos = planos.filter((plano) => plano.id !== id);
@@ -154,39 +154,7 @@ const CriarPlano = () => {
           sx={{ mb: 2 }}
         >
           {editMode ? 'Editar Plano' : 'Adicionar Plano'}
-        </Button>
-
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell><strong>Nome</strong></TableCell>
-                <TableCell><strong>Descrição</strong></TableCell>
-                <TableCell><strong>Data Inicio</strong></TableCell>
-                <TableCell><strong>Data Fim</strong></TableCell>
-                <TableCell><strong>Tipo de Teste</strong></TableCell>
-                <TableCell><strong>Status</strong></TableCell>
-                <TableCell><strong>Ações</strong></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {planos.map((plano) => (
-                <TableRow key={plano.id}>
-                  <TableCell>{plano.nome}</TableCell>
-                  <TableCell>{plano.descricao}</TableCell>
-                  <TableCell>{plano.dataInicio}</TableCell>
-                  <TableCell>{plano.dataFim}</TableCell>
-                  <TableCell>{plano.tipoTeste}</TableCell>
-                  <TableCell>{plano.status}</TableCell>
-                  <TableCell>
-                    <Button onClick={() => handleEditPlano(plano.id)}>Editar</Button>
-                    <Button color="error" onClick={() => handleDeletePlano(plano.id)}>Excluir</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        </Button>        
       </Paper>
     </motion.div>
   );

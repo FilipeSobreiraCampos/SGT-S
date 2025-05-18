@@ -11,6 +11,7 @@ const routes = (app) => {
     app.post('/plano/criar', PlanoController.CriarPlano);
     app.get('/plano/consultar', PlanoController.ListarPlanos);
     app.delete('/plano/deletar/:id', PlanoController.ExcluirPlano);
+    app.put('/plano/editar/:id', PlanoController.EditarPlano);
 
 
 };
