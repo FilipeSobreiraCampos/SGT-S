@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Paper, Typography, Divider, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Button } from '@mui/material';
 import { motion } from 'framer-motion';
 
-const Teste = () => {
+const CasosTeste = () => {
   const [testes, setTestes] = useState([
     { id: 1, nome: 'Teste de Login', plano: 'Plano A', resultado: 'Aprovado' },
     { id: 2, nome: 'Teste de Cadastro', plano: 'Plano B', resultado: 'Reprovado' },
@@ -104,4 +104,4 @@ const Teste = () => {
   );
 };
 
-export default Teste;
+export default CasosTeste;

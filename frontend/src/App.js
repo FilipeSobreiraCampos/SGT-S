@@ -49,12 +49,6 @@ function App() {
                 <Navigate to="/login" replace />
             } />
             
-            <Route path="/teste" element={
-              isAuthenticated ? 
-                <Teste /> : 
-                <Navigate to="/login" replace />
-            } />
-            
             <Route path="/usuario" element={
               isAuthenticated ? 
                 <Usuario /> : 

@@ -64,11 +64,11 @@ const Sidebar = ({ onLogout }) => {
         { text: 'Criar Plano', icon: <ManageAccounts />, path: '/plano/criar' },
         { text: 'Lista de Planos', icon: <ListIcon />, path: '/plano/lista' },
         { text: 'Documentação', icon: <DocumentScanner />, path: '/plano/documentacao' },
+        { text: 'Casos de Teste', icon: <DocumentScanner />, path: '/plano/casos' },
         { text: 'Execução', icon: <PlayArrow />, path: '/plano/execucao' },
         { text: 'Configuração', icon: <Settings />, path: '/plano/configuracao' },
       ]
     },
-    { text: 'Testes', icon: <TestIcon />, path: '/teste' },
     { text: 'Usuários', icon: <UserIcon />, path: '/usuario' },
     { text: 'Sistemas', icon: <SystemIcon />, path: '/sistema' },
     { text: 'Relatórios', icon: <ReportIcon />, path: '/relatorio' },
