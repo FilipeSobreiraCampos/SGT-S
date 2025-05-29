@@ -82,6 +82,12 @@ const PlanoList = () => {
     handleMenuClose();
   };
 
+  const  handleDocumentacao = () => {
+    if (!planoSelecionado) return;
+    navigate(`/plano/documentacao/${planoSelecionado.id}`);
+    handleMenuClose();
+  };
+
   return (
     <Box
       component={motion.div}
@@ -139,7 +145,7 @@ const PlanoList = () => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={handleEditar}>Documentação</MenuItem>
+        <MenuItem onClick={handleDocumentacao}>Documentação</MenuItem>
         <MenuItem onClick={handleEditar}>Sistema</MenuItem>
         <MenuItem onClick={handleEditar}>Execução</MenuItem>
         <MenuItem onClick={handleEditar}>Parâmetros do Plano</MenuItem>

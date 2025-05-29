@@ -8,25 +8,16 @@ import {
   Grid,
   Button,
   MenuItem,
- // Divider,
-  Stepper,
-  Step,
-  StepLabel,
   FormControlLabel,
   Switch,
-  Accordion,
- AccordionSummary,
- AccordionDetails,
   Alert
 } from '@mui/material';
-import { ExpandMore as ExpandMoreIcon, Save as SaveIcon, Check as CheckIcon } from '@mui/icons-material';
+import { ExpandMore as ExpndMoreIcon, Save as SaveIcon, Check as CheckIcon } from '@mui/icons-material';
 
 const DocumentacaoPlano = () => {
   const [searchParams] = useSearchParams();
   const isNew = searchParams.get('new') === 'true';
   const planoId = searchParams.get('id');
-  
-  const [activeStep, setActiveStep] = useState(0);
   const [saved, setSaved] = useState(false);
   
   const [formData, setFormData] = useState({
@@ -92,222 +83,192 @@ const DocumentacaoPlano = () => {
     }, 500);
   };
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const steps = ['Informações Básicas', 'Detalhes do Plano', 'Recursos e Cronograma', 'Aprovação'];
-
   return (
     <Box>
       <Typography variant="h5" gutterBottom sx={{ mb: 3 }}>
-        {isNew ? 'Criar Novo Plano de Teste' : `Editar Plano de Teste: ${formData.nome}`}
+        {`Documentação do plano ${formData.nome}`}
       </Typography>
-      
-      <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel>{label}</StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-
-      <Box sx={{ mt: 2 }}>
-        {activeStep === 0 && (
-          <Paper elevation={3} sx={{ p: 3 }}>
-            <Typography variant="h6" gutterBottom>Informações Básicas</Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  label="Nome do Plano"
-                  fullWidth
-                  name="nome"
-                  value={formData.nome}
-                  onChange={handleChange}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Sistema"
-                  fullWidth
-                  name="sistema"
-                  value={formData.sistema}
-                  onChange={handleChange}
-                  required
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Versão"
-                  fullWidth
-                  name="versao"
-                  value={formData.versao}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Descrição"
-                  fullWidth
-                  name="descricao"
-                  value={formData.descricao}
-                  onChange={handleChange}
-                  required
-                  multiline
-                  rows={4}
-                />
-              </Grid>
-            </Grid>
-          </Paper>
-        )}
-
-        {activeStep === 1 && (
-          <Paper elevation={3} sx={{ p: 3 }}>
-            <Typography variant="h6" gutterBottom>Detalhes do Plano</Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  label="Objetivo"
-                  fullWidth
-                  name="objetivo"
-                  value={formData.objetivo}
-                  onChange={handleChange}
-                  required
-                  multiline
-                  rows={3}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Escopo"
-                  fullWidth
-                  name="escopo"
-                  value={formData.escopo}
-                  onChange={handleChange}
-                  required
-                  multiline
-                  rows={3}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Metodologia"
-                  select
-                  fullWidth
-                  name="metodologia"
-                  value={formData.metodologia}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="Caixa Preta">Caixa Preta</MenuItem>
-                  <MenuItem value="Caixa Branca">Caixa Branca</MenuItem>
-                  <MenuItem value="Cinza">Cinza</MenuItem>
-                </TextField>
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Critérios de Aceitação"
-                  fullWidth
-                  name="criteriosAceitacao"
-                  value={formData.criteriosAceitacao}
-                  onChange={handleChange}
-                  required
-                  multiline
-                  rows={3}
-                />
-              </Grid>
-            </Grid>
-          </Paper>
-        )}
-
-        {activeStep === 2 && (
-          <Paper elevation={3} sx={{ p: 3 }}>
-            <Typography variant="h6" gutterBottom>Recursos e Cronograma</Typography>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  label="Responsável"
-                  fullWidth
-                  name="responsavel"
-                  value={formData.responsavel}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Recursos"
-                  fullWidth
-                  name="recursos"
-                  value={formData.recursos}
-                  onChange={handleChange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Cronograma"
-                  fullWidth
-                  name="cronograma"
-                  value={formData.cronograma}
-                  onChange={handleChange}
-                />
-              </Grid>
-            </Grid>
-          </Paper>
-        )}
-
-        {activeStep === 3 && (
-          <Paper elevation={3} sx={{ p: 3 }}>
-            <Typography variant="h6" gutterBottom>Aprovação</Typography>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={formData.aprovacao}
-                  onChange={handleChange}
-                  name="aprovacao"
-                />
-              }
-              label="Plano Aprovado"
+  
+      {/* Informações Básicas */}
+      <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+        <Typography variant="h6" gutterBottom>Informações Básicas</Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Nome do Plano"
+              fullWidth
+              name="nome"
+              value={formData.nome}
+              onChange={handleChange}
+              required
             />
-          </Paper>
-        )}
-
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-          <Button
-            color="inherit"
-            onClick={handleBack}
-            disabled={activeStep === 0}
-          >
-            Voltar
-          </Button>
-          <Box>
-            {saved && (
-              <Alert severity="success" sx={{ mb: 2 }}>Plano salvo com sucesso!</Alert>
-            )}
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSave}
-              startIcon={<SaveIcon />}
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Sistema"
+              fullWidth
+              name="sistema"
+              value={formData.sistema}
+              onChange={handleChange}
+              required
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Versão"
+              fullWidth
+              name="versao"
+              value={formData.versao}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Descrição"
+              fullWidth
+              name="descricao"
+              value={formData.descricao}
+              onChange={handleChange}
+              required
+              multiline
+              rows={4}
+            />
+          </Grid>
+        </Grid>
+      </Paper>
+  
+      {/* Detalhes do Plano */}
+      <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+        <Typography variant="h6" gutterBottom>Detalhes do Plano</Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Objetivo"
+              fullWidth
+              name="objetivo"
+              value={formData.objetivo}
+              onChange={handleChange}
+              required
+              multiline
+              rows={3}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Escopo"
+              fullWidth
+              name="escopo"
+              value={formData.escopo}
+              onChange={handleChange}
+              required
+              multiline
+              rows={3}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Metodologia"
+              select
+              fullWidth
+              name="metodologia"
+              value={formData.metodologia}
+              onChange={handleChange}
             >
-              Salvar
-            </Button>
-          </Box>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleNext}
-            disabled={activeStep === steps.length - 1}
-          >
-            {activeStep === steps.length - 1 ? 'Finalizar' : 'Próximo'}
-          </Button>
-        </Box>
+              <MenuItem value="Caixa Preta">Caixa Preta</MenuItem>
+              <MenuItem value="Caixa Branca">Caixa Branca</MenuItem>
+              <MenuItem value="Cinza">Cinza</MenuItem>
+            </TextField>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Critérios de Aceitação"
+              fullWidth
+              name="criteriosAceitacao"
+              value={formData.criteriosAceitacao}
+              onChange={handleChange}
+              required
+              multiline
+              rows={3}
+            />
+          </Grid>
+        </Grid>
+      </Paper>
+  
+      {/* Recursos e Cronograma */}
+      <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+        <Typography variant="h6" gutterBottom>Recursos e Cronograma</Typography>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              label="Responsável"
+              fullWidth
+              name="responsavel"
+              value={formData.responsavel}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Recursos"
+              fullWidth
+              name="recursos"
+              value={formData.recursos}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Cronograma"
+              fullWidth
+              name="cronograma"
+              value={formData.cronograma}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Riscos"
+              fullWidth
+              name="riscos"
+              value={formData.riscos}
+              onChange={handleChange}
+              multiline
+              rows={2}
+            />
+          </Grid>
+        </Grid>
+      </Paper>
+  
+      {/* Aprovação */}
+      <Paper elevation={3} sx={{ p: 3, mb: 3 }}>
+        <Typography variant="h6" gutterBottom>Aprovação</Typography>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={formData.aprovacao}
+              onChange={handleChange}
+              name="aprovacao"
+            />
+          }
+          label="Plano Aprovado"
+        />
+      </Paper>
+  
+      {/* Botões */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
+        {saved && (
+          <Alert severity="success" sx={{ flex: 1, mr: 2 }}>Plano salvo com sucesso!</Alert>
+        )}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+          startIcon={<SaveIcon />}
+        >
+          Salvar
+        </Button>
       </Box>
     </Box>
   );
-};
-
+}  
 export default DocumentacaoPlano;
