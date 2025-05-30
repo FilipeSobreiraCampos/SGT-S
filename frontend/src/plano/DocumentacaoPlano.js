@@ -12,7 +12,7 @@ import {
   Switch,
   Alert
 } from '@mui/material';
-import { ExpandMore as ExpndMoreIcon, Save as SaveIcon, Check as CheckIcon } from '@mui/icons-material';
+import {Save as SaveIcon} from '@mui/icons-material';
 
 const DocumentacaoPlano = () => {
   const [searchParams] = useSearchParams();

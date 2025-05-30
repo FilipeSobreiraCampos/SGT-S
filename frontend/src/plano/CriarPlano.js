@@ -11,6 +11,7 @@ const CriarPlano = () => {
     dataFim: '',
     tipoTeste: '',
     descricao: '',
+    sistema,'',
     status: '',
   });
   const [editMode, setEditMode] = useState(false);

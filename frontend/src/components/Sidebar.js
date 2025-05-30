@@ -17,7 +17,6 @@ import {
 import {
   Dashboard as DashboardIcon,
   Description as PlanIcon,
-  BugReport as TestIcon,
   People as UserIcon,
   Computer as SystemIcon,
   Assessment as ReportIcon,
@@ -28,10 +27,12 @@ import {
   DocumentScanner,
   Settings,
   PlayArrow,
-  ManageAccounts,
+  BugReport,
   List as ListIcon,
   ExitToApp as LogoutIcon
 } from '@mui/icons-material';
+
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
 
 const drawerWidth = 240;
 const collapsedWidth = 72;
@@ -61,10 +62,10 @@ const Sidebar = ({ onLogout }) => {
       icon: <PlanIcon />,
       path: '/plano',
       subItems: [
-        { text: 'Criar Plano', icon: <ManageAccounts />, path: '/plano/criar' },
+        { text: 'Criar Plano', icon: <NoteAddIcon />, path: '/plano/criar' },
         { text: 'Lista de Planos', icon: <ListIcon />, path: '/plano/lista' },
         { text: 'Documentação', icon: <DocumentScanner />, path: '/plano/documentacao' },
-        { text: 'Casos de Teste', icon: <DocumentScanner />, path: '/plano/casos' },
+        { text: 'Casos de Teste', icon: <BugReport />, path: '/plano/casos' },
         { text: 'Execução', icon: <PlayArrow />, path: '/plano/execucao' },
         { text: 'Configuração', icon: <Settings />, path: '/plano/configuracao' },
       ]
