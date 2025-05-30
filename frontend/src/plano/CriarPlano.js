@@ -11,7 +11,7 @@ const CriarPlano = () => {
     dataFim: '',
     tipoTeste: '',
     descricao: '',
-    sistema: '',
+    sistema_id: '',
     status: '',
   });
   const [editMode, setEditMode] = useState(false);
@@ -32,15 +32,20 @@ const CriarPlano = () => {
     fetchData();
   }, []);
   
+  const numericFields = ['sistema_id'];
+
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm({
+      ...form,
+      [name]: numericFields.includes(name) ? parseInt(value, 10) : value
+    });
   };
-
   const handleAddPlano = async () => {
       try {
         const response = await axios.post('http://localhost:3001/plano/criar', form);
         setPlanos([...planos, response.data]);
+        console.log(`form response: ${response}`)
       } catch (error) {
         console.error('Erro ao criar o plano:', error);
       }
@@ -51,7 +56,7 @@ const CriarPlano = () => {
       dataInicio: '',
       dataFim: '',
       tipoTeste: '',
-      sistema: '',
+      sistema_id: '',
       status: '',
     });
   };
@@ -119,10 +124,11 @@ const CriarPlano = () => {
           sx={{ mb: 2 }}
         />
     <TextField
+    
       select
       label="Sistema"
-      name="sistema"
-      value={form.sistema}
+      name="sistema_id"
+      value={form.sistema_id}
       onChange={handleFormChange}
       fullWidth
       sx={{ mb: 2 }}
@@ -133,6 +139,7 @@ const CriarPlano = () => {
           {`${sistema.nome} - ${sistema.versao} - ${sistema.descricao}`}
         </MenuItem>
       ))}
+
 </TextField>
         <TextField
           label="Status"
