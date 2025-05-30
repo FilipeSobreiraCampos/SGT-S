@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Paper, Typography, Divider, Button, TextField } from '@mui/material';
+import { Paper, Typography, Divider, Button, TextField, MenuItem } from '@mui/material';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
@@ -11,24 +11,27 @@ const CriarPlano = () => {
     dataFim: '',
     tipoTeste: '',
     descricao: '',
-    sistema,'',
+    sistema: '',
     status: '',
   });
   const [editMode, setEditMode] = useState(false);
-  const [editId, setEditId] = useState(null);
+  const [sistemas, setSistemas] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:3001/plano/consultar');
+        const sistemas = await axios.get('http://localhost:3001/sistemas/consultar') 
         setPlanos(response.data);
+        setSistemas(sistemas.data)
+
       } catch (error) {
         console.error('Erro ao buscar os dados:', error);
       }
     };
     fetchData();
   }, []);
-
+  
   const handleFormChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -48,6 +51,7 @@ const CriarPlano = () => {
       dataInicio: '',
       dataFim: '',
       tipoTeste: '',
+      sistema: '',
       status: '',
     });
   };
@@ -114,6 +118,22 @@ const CriarPlano = () => {
           fullWidth
           sx={{ mb: 2 }}
         />
+    <TextField
+      select
+      label="Sistema"
+      name="sistema"
+      value={form.sistema}
+      onChange={handleFormChange}
+      fullWidth
+      sx={{ mb: 2 }}
+      InputLabelProps={{ shrink: true }}
+    >
+      {sistemas.map((sistema) => (
+        <MenuItem key={sistema.id} value={sistema.id}>
+          {`${sistema.nome} - ${sistema.versao} - ${sistema.descricao}`}
+        </MenuItem>
+      ))}
+</TextField>
         <TextField
           label="Status"
           name="status"
