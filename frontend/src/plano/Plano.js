@@ -11,7 +11,6 @@ import {
 import { Add as AddIcon } from '@mui/icons-material';
 import DocumentacaoPlano from './DocumentacaoPlano';
 import ExecucaoPlano from './ExecucaoPlano';
-import ConfiguracaoTeste from './ConfiguracaoTeste';
 import PlanoList from './PlanoList';
 import CriarPlano from './CriarPlano';
 import CasosTeste from './CasosTeste'
@@ -21,7 +20,7 @@ const Plano = () => {
   const location = useLocation();
   const [tabValue, setTabValue] = React.useState(0);
 
-  const tabPaths = ['/plano/criar','/plano/lista', '/plano/documentacao','plano/casos', '/plano/execucao', '/plano/configuracao'];
+  const tabPaths = ['/plano/criar','/plano/lista', '/plano/documentacao','plano/casos', '/plano/execucao'];
 
   // Atualiza a aba com base na URL
   React.useEffect(() => {
@@ -36,7 +35,6 @@ const Plano = () => {
         <Route path="/documentacao" element={<DocumentacaoPlano />} />
         <Route path="/casos" element={<CasosTeste />} />
         <Route path="/execucao" element={<ExecucaoPlano />} />
-        <Route path="/configuracao" element={<ConfiguracaoTeste />} />
         <Route path="/criar" element={<CriarPlano />} />
       </Routes>
     </Box>
