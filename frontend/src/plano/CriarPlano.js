@@ -116,39 +116,56 @@ const CriarPlano = () => {
           InputLabelProps={{ shrink: true }}
         />
         <TextField
+          select
           label="Tipo de Teste"
           name="tipoTeste"
           value={form.tipoTeste}
           onChange={handleFormChange}
           fullWidth
           sx={{ mb: 2 }}
-        />
-    <TextField
-    
-      select
-      label="Sistema"
-      name="sistema_id"
-      value={form.sistema_id}
-      onChange={handleFormChange}
-      fullWidth
-      sx={{ mb: 2 }}
-      InputLabelProps={{ shrink: true }}
-    >
-      {sistemas.map((sistema) => (
-        <MenuItem key={sistema.id} value={sistema.id}>
-          {`${sistema.nome} - ${sistema.versao} - ${sistema.descricao}`}
-        </MenuItem>
-      ))}
+        >
+          {['Unitário', 'Integração', 'Sistema', 'Aceitação', 'Regressão', 'Desempenho', 'Usabilidade', 'Segurança'].map((tipo) => (
+            <MenuItem key={tipo} value={tipo}>
+              {tipo}
+            </MenuItem>
+          ))}
+        </TextField>
 
-</TextField>
         <TextField
+          select
           label="Status"
           name="status"
           value={form.status}
           onChange={handleFormChange}
           fullWidth
           sx={{ mb: 2 }}
-        />
+        >
+          {['Pendente', 'Em andamento', 'Concluído', 'Cancelado'].map((status) => (
+            <MenuItem key={status} value={status}>
+              {status}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        <TextField
+        
+          select
+          label="Sistema"
+          name="sistema_id"
+          value={form.sistema_id}
+          onChange={handleFormChange}
+          fullWidth
+          sx={{ mb: 2 }}
+          InputLabelProps={{ shrink: true }}
+        >
+          {sistemas.map((sistema) => (
+            <MenuItem key={sistema.id} value={sistema.id}>
+              {`${sistema.nome} - ${sistema.versao} - ${sistema.descricao}`}
+            </MenuItem>
+          ))}
+
+    </TextField>
+
         <Button
           variant="contained"
           onClick={handleAddPlano}

@@ -18,6 +18,8 @@ const routes = (app) => {
 
     app.get('/sistemas/consultar', SistemaController.ListarSistemas) // Lista todos os sistemas
 
+    //Rotas da Documentação
+
 
 };
 

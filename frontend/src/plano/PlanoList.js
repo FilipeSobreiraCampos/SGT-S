@@ -146,7 +146,6 @@ const PlanoList = () => {
         onClose={handleMenuClose}
       >
         <MenuItem onClick={handleDocumentacao}>Documentação</MenuItem>
-        <MenuItem onClick={handleEditar}>Sistema</MenuItem>
         <MenuItem onClick={handleEditar}>Execução</MenuItem>
         <MenuItem onClick={handleEditar}>Parâmetros do Plano</MenuItem>
         <MenuItem onClick={handleEditar}>Editar</MenuItem>
