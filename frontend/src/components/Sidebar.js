@@ -66,7 +66,6 @@ const Sidebar = ({ onLogout }) => {
         { text: 'Lista de Planos', icon: <ListIcon />, path: '/plano/lista' },
         { text: 'Documentação', icon: <DocumentScanner />, path: '/plano/documentacao' },
         { text: 'Casos de Teste', icon: <BugReport />, path: '/plano/casos' },
-        { text: 'Execução', icon: <PlayArrow />, path: '/plano/execucao' },
       ]
     },
     { text: 'Usuários', icon: <UserIcon />, path: '/usuario' },

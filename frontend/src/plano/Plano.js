@@ -2,15 +2,8 @@ import React from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import {
   Box,
-  Typography,
-  Tabs,
-  Tab,
-  Button,
-  Paper
 } from '@mui/material';
-import { Add as AddIcon } from '@mui/icons-material';
 import DocumentacaoPlano from './DocumentacaoPlano';
-import ExecucaoPlano from './ExecucaoPlano';
 import PlanoList from './PlanoList';
 import CriarPlano from './CriarPlano';
 import CasosTeste from './CasosTeste'
@@ -34,7 +27,6 @@ const Plano = () => {
         <Route path="/lista" element={<PlanoList />} />
         <Route path="/documentacao" element={<DocumentacaoPlano />} />
         <Route path="/casos" element={<CasosTeste />} />
-        <Route path="/execucao" element={<ExecucaoPlano />} />
         <Route path="/criar" element={<CriarPlano />} />
       </Routes>
     </Box>
