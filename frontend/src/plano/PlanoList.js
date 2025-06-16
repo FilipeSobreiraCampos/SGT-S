@@ -82,11 +82,12 @@ const PlanoList = () => {
     handleMenuClose();
   };
 
-  const  handleDocumentacao = () => {
+  const handleDocumentacao = () => {
     if (!planoSelecionado) return;
-    navigate(`/plano/documentacao/${planoSelecionado.id}`);
+    navigate(`/plano/documentacao`); // sem o ID
     handleMenuClose();
   };
+  
 
   return (
     <Box
