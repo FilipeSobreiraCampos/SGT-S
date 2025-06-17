@@ -4,8 +4,6 @@ import {
   Box,
 } from '@mui/material';
 import DocumentacaoPlano from './DocumentacaoPlano';
-import ExecucaoPlano from './ExecucaoPlano';
-import ConfiguracaoTeste from './ConfiguracaoTeste';
 import PlanoList from './PlanoList';
 import CriarPlano from './CriarPlano';
 import CasosTeste from './CasosTeste'
@@ -28,9 +26,7 @@ const Plano = () => {
         <Routes>
         <Route path="/lista" element={<PlanoList />} />
         <Route path="/documentacao" element={<DocumentacaoPlano />} />
-        <Route path="/casos" element={<CasosTeste />} />
-        <Route path="/execucao" element={<ExecucaoPlano />} />
-        <Route path="/configuracao" element={<ConfiguracaoTeste />} />
+        <Route path="/casos" element={<CasosTeste />} />    
         <Route path="/criar" element={<CriarPlano />} />
       </Routes>
     </Box>
