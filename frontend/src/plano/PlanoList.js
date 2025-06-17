@@ -82,6 +82,12 @@ const PlanoList = () => {
     handleMenuClose();
   };
 
+  const handleCasos = () => {
+    if (!planoSelecionado) return;
+    navigate(`/plano/casos`);
+    handleMenuClose();
+  };
+
   const handleDocumentacao = () => {
     if (!planoSelecionado) return;
     navigate(`/plano/documentacao`); // sem o ID
@@ -147,8 +153,7 @@ const PlanoList = () => {
         onClose={handleMenuClose}
       >
         <MenuItem onClick={handleDocumentacao}>Documentação</MenuItem>
-        <MenuItem onClick={handleEditar}>Execução</MenuItem>
-        <MenuItem onClick={handleEditar}>Parâmetros do Plano</MenuItem>
+        <MenuItem onClick={handleCasos}>Execução dos testes</MenuItem>
         <MenuItem onClick={handleEditar}>Editar</MenuItem>
         <MenuItem onClick={handleExcluir}>Excluir</MenuItem>
       </Menu>
